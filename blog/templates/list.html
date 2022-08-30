@@ -1,0 +1,77 @@
+{%extends 'base.html'%}
+{%block title%}
+hello world
+{%endblock%}
+
+
+
+{%block content%}
+
+{%for post in posts %}
+
+				<!-- post -->
+								<a href="{{post.get_absolute_url}}" class="col-12 col-md-6 mb-5 position-relative text-dark clearfix text-decoration-none">
+
+									<figure class="d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
+										<img class="img-fluid rounded" src="{{post.img.url}}" alt="...">
+									</figure>
+
+
+									<p class="text-muted small">
+										Post Date: <time datetime="2019-12-03">{{post.publish}}</time> by {{post.author}}
+									</p>
+									<h2 class="h5">{{post.title}}</h2>
+
+								</a>
+								<!-- /post -->
+{%endfor%}
+{%endblock%}
+
+{%block paginator%}
+<!-- pagination : center -->
+{%if posts.has_other_pages %}
+							<nav aria-label="pagination" class="my-5">
+								<ul class="pagination pagination-pill justify-content-center">
+									{% if posts.has_previous %}
+
+									<li class="page-item ">
+										<a class="page-link" href="?page={{posts.previous_page_number}}" tabindex="-1">Previous</a>
+									</li>
+									{%else%}
+									<li class="page-item disabled">
+										<a class="page-link" href="#" tabindex="-1">Previous</a>
+									</li>
+									{%endif%}
+
+									{%for i in posts.paginator.page_range%}
+									{%if posts.number == i %}
+									<li class="page-item active" aria-current="page">
+										<a class="page-link" href="?page={{i}}">{{i}} <span class="visually-hidden">(current)</span></a>
+									</li>
+									{%else%}
+
+
+									<li class="page-item">
+										<a class="page-link" href="?page={{i}}">{{i}}</a>
+									</li>
+									{%endif%}
+									{%endfor%}
+
+									{%if posts.has_next%}
+                                    <li class="page-item">
+										<a class="page-link" href="?page={{posts.next_page_number}}">Next</a>
+									</li>
+
+									{%else%}
+									<li class="page-item disabled">
+										<a class="page-link" href="#">Next</a>
+									</li>
+									{%endif%}
+							{%endif%}
+
+
+
+								</ul>
+							</nav>
+							<!-- /pagination : center -->
+{%endblock%}

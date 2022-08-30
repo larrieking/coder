@@ -1,0 +1,256 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+
+							<div class="mb-4">
+
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb small mb-3">
+										<li class="breadcrumb-item"><a href="#">Home</a></li>
+										<li class="breadcrumb-item"><a href="#">Blog</a></li>
+										<li class="breadcrumb-item"><a href="#">Category</a></li>
+									</ol>
+								</nav>
+								<h1 class="h3 mb-0">
+									{{post.title}}
+								</h1>
+
+
+								<p class="d-block text-muted small">
+									Post Date: <time datetime="2019-12-03">{{post.publish}}</time>
+								</p>
+
+							</div>
+
+
+
+							<!-- post image -->
+							<figure class="d-block text-center rounded overflow-hidden mb-5">
+								<img src="{{post.img.url}}" class="img-fluid rounded" alt="...">
+							</figure>
+
+
+
+							<!--
+								.article-format class will add some slightly formattings for a good text visuals.
+								This is because most editors are not ready formatted for bootstrap
+								Blog content should come inside this container, as it is from database!
+								src/scss/_core/base/_typography.scss
+							-->
+							<div class="article-format">
+
+
+
+{{post.body | striptags}}
+
+
+							</div>
+
+
+							<p class="text-muted border-bottom pb-2 small mt-5">
+								Last Update: {{post.publish}}
+							</p>
+
+
+							<!-- Tags and share -->
+							<div class="row">
+								<div class="col-6">
+
+
+								</div>
+
+								<div class="col-6 col-6 text-align-end">
+
+									<h4 class="smaller text-muted">
+										Share with your friends &amp; family
+									</h4>
+									<form method="post">
+
+									<a href="{%url 'post_share' post.id%}" class="btn btn-sm btn-facebook rounded-circle transition-hover-top mb-2" rel="noopener" target="smarty">
+										<i class="fi fi-envelope-2 m-0"></i>
+									</a>
+
+									<a href="#" class="btn btn-sm btn-facebook rounded-circle transition-hover-top mb-2" rel="noopener" target="smarty">
+										<i class="fi fi-social-facebook m-0"></i>
+									</a>
+									<a href="#" class="btn btn-sm btn-twitter rounded-circle transition-hover-top mb-2" rel="noopener" target="smarty">
+										<i class="fi fi-social-twitter m-0"></i>
+									</a>
+                                    </form>
+								</div>
+							</div>
+							<!-- /Tags and share -->
+
+
+
+
+
+
+
+							<!-- COMMENTS -->
+							<div class="clearfix mt-5">
+
+								<h3 class="mb-4">Comments</h3>
+
+								<!-- already logged in -->
+								<span class="d-block text-muted small mb-1">
+									Logged in as: <b>John Doe</b>.
+									Not you? Please <a rel="nofollow" href="#!">sign out!</a>
+								</span>
+
+								<!-- Write Comment Form -->
+								<form novalidate="" method="post" action="" class="bs-validate d-block bg-white shadow-primary-xs rounded p-3 mb-5">
+{%csrf_token%}
+									<div class="row g-2">
+
+										<div class="col-12 col-md-6">
+
+											<div class="form-floating mb-2">
+												<input required="" placeholder="Name" id="comment_name" type="text" value=""  name = 'name' class="form-control">
+												<label for="comment_name">Name</label>
+											</div>
+
+										</div>
+
+										<div class="col-12 col-md-6">
+
+											<div class="form-floating mb-2">
+												<input required="" placeholder="Email" id="comment_email" type="email" value="" class="form-control" name="email">
+												<label for="comment_email">Email</label>
+											</div>
+
+										</div>
+
+									</div>
+
+
+									<div class="clearfix mb-3">
+
+										<div class="form-floating">
+											<textarea required=""  rows="3" style="min-height:120px" id="comment_description" data-output-target=".js-form-advanced-char-left" class="form-control js-form-advanced-char-count-down" maxlength="3000" placeholder="Your comment" name="body"></textarea>
+											<label for="comment_description">Your comment</label>
+										</div>
+
+										<span class="smaller text-muted text-align-end float-end mt-1">
+											characters left: <span class="js-form-advanced-char-left">3000</span>
+										</span>
+
+									</div>
+
+
+
+
+									<button type="submit" class="btn btn-primary btn-sm">
+										Submit Comment
+									</button>
+								</form>
+								<!-- /Write Comment Form -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+								<!-- LIST COMMENTS -->
+								<h3 class="mb-4">{{comments.count}} Comment{{comments.count|pluralize}}</h3>
+
+
+
+
+
+{% for c in comments %}
+
+								<!-- Comment Anonymous : no avatar -->
+								<div class="d-flex mb-4">
+
+									<!-- avatar : as background -->
+									<div style="width:180px" class="text-center">
+										<div style="width:70px; height:70px;" class="mb-1 rounded-circle d-inline-block bg-light bg-cover">
+											<i class="fi fi-user-male fs-1 d-block mt-1 text-gray-500"></i>
+										</div>
+										<span class="d-block text-dark">{{c.name}}</span>
+										<small class="d-block text-dark smaller">{{c.updated}}</small>
+									</div>
+
+									<div class="w-100">
+										<p>{{c.body}}</p>
+
+										<!-- options -->
+										<ul class="list-inline my-3">
+
+											<!-- like -->
+											<li class="list-inline-item">
+
+												<!--
+													NOTE: working ajax button! Check console for debug
+													No security implemented to block multiple votes
+													So on page refresh, should be handled by backend!
+												-->
+												<a href="#" class="btn-toggle btn btn-light py-1 px-2 fs-6 js-togglified" data-toggle-ajax-url-on="demo.files/php/demo.ajax_request.php?comment_id=1&amp;vote=1">
+
+													<span class="group-icon">
+														<i class="fi fi-like"></i>
+														<i class="fi fi-like text-primary"></i>
+													</span>
+
+													<span>like</span>
+												</a>
+
+											</li>
+											<!-- /like -->
+
+											<!-- reply -->
+											<li class="list-inline-item">
+
+												<!--
+
+													Replies are using an ajax modal!
+													Replace with wordpress style, if wordpress used!
+
+													This format can be used on custom blog CMS.
+
+												-->
+												<a href="#" class="js-ajax-modal btn btn-light py-1 px-2 fs-6 js-modalified" data-href="_ajax/modal_blog_comment_reply.html?comment_id=1#hash1" data-ajax-modal-size="modal-md" data-ajax-modal-centered="false" data-ajax-modal-backdrop="static">
+													<i class="fi fi-plus"></i>
+													<span>reply</span>
+												</a>
+
+											</li>
+											<!-- /reply -->
+
+										</ul>
+										<!-- /options -->
+
+
+										<!-- ... replies here ... -->
+
+									</div>
+
+								</div>
+								<!-- /Comment Anonymous : no avatar -->
+
+								<!-- /LIST COMMENTS -->
+
+{%endfor%}
+
+							</div>
+							<!-- /COMMENTS -->
+
+
+
+
+
+
+
+
+{%endblock%}

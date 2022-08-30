@@ -1,0 +1,11 @@
+<ul class="list-unstyled">
+{% for post in latest_posts %}
+
+									<li class="list-item border-bottom py-1">
+
+										<a class="text-dark fw-light fs-6" href="{{
+										post.get_absolute_url}}">{{post.title}}</a>
+									</li>
+    {%endfor%}
+								</ul>
+								<!-- /RECOMMENDED -->

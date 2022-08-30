@@ -1,0 +1,14 @@
+			<ul id="nav_responsive" class="nav flex-column d-none d-lg-block">
+{%for c in categories%}
+									<li class="nav-item active">
+										<a class="nav-link px-0" href="{%url 'post_list'%}?cat={{c.id}}">
+											<i class="fi fi-arrow-end m-0 smaller"></i>
+											<span class="px-2 d-inline-block">
+												{{c.category_name}}
+											</span>
+										</a>
+									</li>
+
+									{%endfor%}
+
+								</ul>

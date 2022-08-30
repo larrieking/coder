@@ -1,0 +1,80 @@
+{% extends "base.html"%}
+
+{%block title%}share a post{%endblock%}
+{%block content%}
+
+{% if sent%}
+<h1>email successfully sent</h1>
+<p>
+    "{{post.title}}" was successfully sent to {{to}}
+</p>
+
+{%else%}
+<h1 class="mb-5">Share "{{post.title}}" by e-mail</h1>
+
+                  <form novalidate="" class="bs-validate row" method="post" action="">
+{% csrf_token %}
+                    <div class="col-12 col-lg-6 mb-3">
+
+                      <div class="form-floating">
+                        <input name="first" required="" placeholder="First Name" id="first_name" type="text" value="" class="form-control form-control-clean">
+                        <label for="first_name">First Name</label>
+                      </div>
+
+                    </div>
+
+                    <div class="col-12 col-lg-6 mb-3">
+
+                      <div class="form-floating">
+                        <input name="last" required="" placeholder="Last Name" id="last_name" type="text" value="" class="form-control form-control-clean">
+                        <label for="last_name">Last Name</label>
+                      </div>
+
+                    </div>
+
+                    <div class="col-12 col-lg-6 mb-3">
+
+                      <div class="form-floating">
+                        <input name="from" required="" placeholder="From Email Address" id="email_address" type="email" value="" class="form-control form-control-clean">
+                        <label for="email_address">Email Address</label>
+                      </div>
+
+                    </div>
+
+
+                    <div class="col-12 col-lg-6 mb-3">
+
+                      <div class="form-floating">
+                        <input name="to" required="" placeholder="To Email Address" id="to_email_address" type="email" value="" class="form-control form-control-clean">
+                        <label for="to_email_address">To email Address</label>
+                      </div>
+
+                    </div>
+
+                    <div class="col-12 mb-3">
+
+                      <div class="form-floating">
+                        <textarea name="body" required="" placeholder="Message" id="message" class="form-control form-control-clean">Read "{{post.title}}" at {{post_url}}</textarea>
+                        <label for="message">Message</label>
+                      </div>
+
+                    </div>
+
+
+                    <div class="col-12 mt-5">
+                      <button type="submit" class="btn btn-lg w-100 btn-primary bg-gradient-primary">Share</button>
+                    </div>
+
+                    <div class="col-12 mt-4">
+                      <p class="text-gray-500 fw-light m-0 fs-6">
+                        Your data is safe, we never share your personal detail with anyone!
+                      </p>
+                    </div>
+
+                  </form>
+{%endif%}
+{%endblock%}
+
+
+
+
