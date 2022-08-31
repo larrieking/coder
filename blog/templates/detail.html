@@ -42,7 +42,7 @@
 
 
 
-{{post.body | striptags}}
+{{post.body | safe}}
 
 
 							</div>
@@ -93,11 +93,11 @@
 
 								<h3 class="mb-4">Comments</h3>
 
-								<!-- already logged in -->
+								<!-- already logged in
 								<span class="d-block text-muted small mb-1">
 									Logged in as: <b>John Doe</b>.
 									Not you? Please <a rel="nofollow" href="#!">sign out!</a>
-								</span>
+								</span>-->
 
 								<!-- Write Comment Form -->
 								<form novalidate="" method="post" action="" class="bs-validate d-block bg-white shadow-primary-xs rounded p-3 mb-5">
