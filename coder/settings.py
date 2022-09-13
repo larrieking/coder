@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(-3kr-96bmp(4jl72ghk!2v)%&m3ocp*65u8(p@@-)pdk%)_w=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.larrycode.com.ng']
 
 SITE_ID = 1
 # Application definition
@@ -97,10 +97,10 @@ TINYMCE_SPELLCHECKER = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'acl',
-        'USER':'root',
-        'PASSWORD':'',
-        'HOST':'localhost',
+        'NAME': 'codershift$profile',
+        'USER':'codershift',
+        'PASSWORD':'Elshadai1986$',
+        'HOST':'codershift.mysql.pythonanywhere-services.com',
         'PORT':'3306',
 
     }
@@ -141,7 +141,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static')),
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
